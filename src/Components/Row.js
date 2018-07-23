@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames'
 
 import Cell from './Cell'
+import CellGroup from './CellGroup'
 
 export default class Row extends Component {
   static propTypes = {
@@ -18,7 +19,6 @@ export default class Row extends Component {
     indentSize: PropTypes.number,
     // store: PropTypes.object.isRequired,
     fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    components: PropTypes.any,
     isAnyColumnsFixed: PropTypes.bool,
     visible: PropTypes.bool,
     isHeaderRow: PropTypes.bool,
@@ -29,9 +29,56 @@ export default class Row extends Component {
     isHeaderRow: false
   }
 
+  static contextTypes = {
+    rowHeight: PropTypes.number
+  }
+
   constructor (props) {
     super(props)
     this.shouldRender = this.props.visible
+  }
+
+  componentDidMount () {
+    this._cellIndentSize = Math.floor(this.row.clientHeight / this.context.rowHeight )
+    console.log(this._cellIndentSize)
+  }
+
+  getCells (columns, cellIndentSize = this._cellIndentSize) {
+    const {
+      prefixCls,
+      rowData,
+      indent,
+      indentSize,
+      isHeaderRow,
+    } = this.props
+
+    console.log('indentSize: ' + cellIndentSize)
+
+    const cells = columns.map((column, index) => {
+      if (column.children) {
+        return <CellGroup cellIndent={1} isHeaderCell={isHeaderRow} column={column} prefixCls={prefixCls}>{this.getCells(column.children, cellIndentSize - 1)}</CellGroup>
+      }
+      return (
+        <Cell
+          prefixCls={prefixCls}
+          rowData={rowData}
+          indentSize={indentSize}
+          indent={indent}
+          index={index}
+          column={column}
+          key={column.key || column.dataIndex}
+          isHeaderCell={isHeaderRow}
+          cellIndent={cellIndentSize}
+          height={this.context.rowHeight}
+        />
+      )
+    })
+
+    return cells
+  }
+
+  rowRef = (ref) => {
+    this.row = ref
   }
 
   render () {
@@ -48,31 +95,13 @@ export default class Row extends Component {
       indentSize,
       height,
       visible,
-      components,
       className,
       style,
       isHeaderRow,
       ...others
     } = this.props
 
-    const BodyRow = components.row
-    const BodyCell = components.cell 
-
-    const cells = columns.map((column, index) => {
-      return (
-        <Cell
-          prefixCls={prefixCls}
-          rowData={rowData}
-          indentSize={indentSize}
-          indent={indent}
-          index={index}
-          column={column}
-          key={column.key || column.dataIndex}
-          component={BodyCell}
-          isHeaderCell={isHeaderRow}
-        />
-      )
-    })
+    const cells = this.getCells(columns)
 
     const rowClassName = classnames(className, [`${prefixCls}-row-level-${indent}`, `${prefixCls}-row`])
     const styles = {
@@ -85,13 +114,14 @@ export default class Row extends Component {
     }
 
     return (
-      <BodyRow
+      <div
         className={rowClassName}
         {...others}
         style={styles}
+        ref={this.rowRef}
       >
         {cells}
-      </BodyRow>
+      </div>
     )
   }
 }

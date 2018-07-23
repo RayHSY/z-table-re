@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import ColGroup from './ColGroup'
-import Header from './Header'
+import HeaderRow from './HeaderRow'
 import Row from './Row'
 
 import classnames from 'classnames'
@@ -26,7 +25,6 @@ class BaseTable extends Component {
 
   static contextTypes = {
     saveRef: PropTypes.func,
-    table: PropTypes.object
   }
 
   constructor (props) {
@@ -62,7 +60,6 @@ class BaseTable extends Component {
           columns={columns}
           rowKey={index}
           isAnyColumnsFixed={isAnyColumnsFixed}
-          components={this.context.table.tbody}
         />
       )
 
@@ -82,24 +79,21 @@ class BaseTable extends Component {
       prefixCls
     } = this.props
     const styles = {...style}
-    const {wrapper: TableWrapper, thead, tbody} = this.context.table
 
     const columns = this.getColumns()
 
     let body;
     if (hasBody) {
-      const {wrapper: TbodyWrapper} = tbody
-      body = <TbodyWrapper className={`${prefixCls}-tbody`}>{this.renderRows(data, 0)}</TbodyWrapper>
+      body = <div className={`${prefixCls}-tbody`}>{this.renderRows(data, 0)}</div>
     }
 
     const classStr = classnames(`${prefixCls}-wrapper`, className)
 
     return (
-      <TableWrapper ref={this.context.saveRef(this.props.nodeName)} className={classStr} style={styles} key="table">
-        <ColGroup columns={columns} />
-        {hasHeader && <Header components={thead} prefixCls={prefixCls} columns={columns} fixed={fixed}/>}
+      <div ref={this.context.saveRef(this.props.nodeName)} className={classStr} style={styles} key="table">
+        {hasHeader && <HeaderRow saveRef={this.context.saveRef} prefixCls={prefixCls} columns={columns} fixed={fixed}/>}
         {body}
-      </TableWrapper>
+      </div>
     )
 
   }

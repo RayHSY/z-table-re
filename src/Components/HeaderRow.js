@@ -7,13 +7,11 @@ export default function Header (props) {
     columns,
     fixed,
     prefixCls,
-    components
+    saveRef
   } = props
 
-  const {wrapper: TheadWrapper} = components
-
   return (
-    <TheadWrapper className={`${prefixCls}-thead`}>
+    <div ref={saveRef('headerRow')} className={`${prefixCls}-thead`}>
       {
         <Row
           isHeaderRow={true}
@@ -21,9 +19,8 @@ export default function Header (props) {
           columns={columns}
           prefixCls={prefixCls}
           indent={0}
-          components={components}
       />
       }
-    </TheadWrapper>
+    </div>
   )
 }

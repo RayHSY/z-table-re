@@ -9,13 +9,15 @@ export default class Cell extends Component {
     indent: PropTypes.number,
     indentSize: PropTypes.number,
     column: PropTypes.object,
-    component: PropTypes.any,
-    isHeaderCell: PropTypes.bool
+    isHeaderCell: PropTypes.bool,
+    cellIntent: PropTypes.number,
+    height: PropTypes.number
   }
 
   static defaultProps = {
     isHeaderCell: false,
-    component: 'td',
+    cellIntentSize: 1,
+    height: 50
   }
 
   constructor (props) {
@@ -26,20 +28,21 @@ export default class Cell extends Component {
     const {
       index,
       column,
-      component: BodyCell,
       rowData,
       isHeaderCell,
       prefixCls,
+      cellIndent,
+      height,
       ...others
     } = this.props
 
-    let styles = {}
+    let styles = {
+      width: column.width || 100,
+      textAlign: column.align || 'inherit',
+      height: isHeaderCell ? cellIndent * height : height,
+    }
 
     const { dataIndex, render, className = '' } = column
-
-    if (column.align) {
-      styles.textAlign = column.align
-    }
 
     let text
 
@@ -58,9 +61,11 @@ export default class Cell extends Component {
     }
 
     return (
-      <BodyCell style={styles} className={`${prefixCls}-cell`} {...others}>
-        {text}
-      </BodyCell>
+      <div style={styles} className={`${prefixCls}-cell`} {...others}>
+        <div style={styles} className={`${prefixCls}-cell-inner`}>
+          {text}
+        </div>
+      </div>
     )
   }
 }

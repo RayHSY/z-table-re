@@ -13,34 +13,18 @@ class Table extends Component {
     data: PropTypes.array,
     columns: PropTypes.array,
     showHeader: PropTypes.bool,
-    components: PropTypes.object,
     prefixCls: PropTypes.string,
     className: PropTypes.string
   }
 
   static defaultProps = {
     showHeader: true,
-    components: {
-      table: {
-        thead: {
-          row: 'div',
-          cell: 'div',
-          wrapper: 'div'
-        },
-        tbody: {
-          row: 'div',
-          cell: 'div',
-          wrapper: 'div'
-        },
-        wrapper: 'div'
-      }
-    },
     prefixCls: 'z-table'
   }
 
   static childContextTypes = {
     saveRef: PropTypes.func,
-    table: PropTypes.object,
+    rowHeight: PropTypes.number
   }
 
   constructor (props) {
@@ -61,7 +45,7 @@ class Table extends Component {
   getChildContext () {
     return {
       saveRef: this.saveRef,
-      table: this.props.components.table
+      rowHeight: this.props.rowHeight || 50
     }
   }
 
@@ -83,10 +67,22 @@ class Table extends Component {
     this._columnsInRight = this._columnsInWindow
     this._maxW = this._averWidth * this._columnsInWindow
 
-    console.log(this)
-
     this.handleScrollY()
     this.handleScrollX()
+
+    if (this.tableBody.scrollWidth === this.tableBody.clientWidth) {
+      this._width = this.getTableWidth(columns)
+    }
+  }
+
+  getTableWidth (columns) {
+    return columns.reduce((total, column) => {
+      if (column.children) {
+        return total + this.getTableWidth(column.children)
+      }
+      let width = column.width ? column.width : 100
+      return total + width
+    }, 0)
   }
 
   resetPreviewList (PARAMS, from, to) {
@@ -189,7 +185,7 @@ class Table extends Component {
 
 
   render () {
-    const {components, columns, showHeader, prefixCls, className} = this.props
+    const {columns, showHeader, prefixCls, className} = this.props
     const {data, paddingBottom, paddingTop, paddingRight, paddingLeft }  = this.state
     const bodyStyles = {
       paddingTop,
@@ -198,21 +194,14 @@ class Table extends Component {
       paddingLeft
     }
 
+    const tableStyles = {
+      width: this._width
+    }
+
     const classStr = classnames(prefixCls, className)
+
     return (
-      <div className={classStr}>
-        {/* <ScrollBar renderThumbVertical={this.renderThumbVertical} ref="scrollbarHeader" autoHeight onScroll={this.handleScrollX}>
-          <BaseTable 
-            hasBody={false} 
-            nodeName='tableHeader' 
-            prefixCls={prefixCls}
-            hasHeader={showHeader} 
-            components={components} 
-            data={data} 
-            columns={columns}
-            className={`${prefixCls}-header`}
-          />
-        </ScrollBar> */}
+      <div className={classStr} style={tableStyles}>
         <div className="scroll-outer">
           <div onScroll={this.handleScrollX} className="scroll-inner" ref={this.saveRef('scrollbarHeader')}>
             <BaseTable 
@@ -220,7 +209,6 @@ class Table extends Component {
               nodeName='tableHeader' 
               prefixCls={prefixCls}
               hasHeader={showHeader} 
-              components={components} 
               data={data} 
               columns={columns}
               className={`${prefixCls}-header`}
@@ -231,7 +219,6 @@ class Table extends Component {
           <BaseTable 
             nodeName='tableBody' 
             prefixCls={prefixCls}
-            components={components} 
             data={data} 
             columns={this.state.columns}
             style={bodyStyles}
