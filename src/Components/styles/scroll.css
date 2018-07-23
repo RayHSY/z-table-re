@@ -1,0 +1,15 @@
+.z-scroll {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-wrapper {
+  overflow: scroll;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}

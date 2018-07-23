@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.z-table {
+  font-size: 14px;
+  color: #666;
+  transition: opacity 0.3s ease;
+  position: relative;
+  line-height: 1.5;
+  overflow: hidden;
+  max-width: 900px;
+}
+
+.z-table-wrapper {
+  /* min-width: 500px; */
+  /* width: 100%; */
+  white-space: nowrap;
+  box-sizing: content-box;
+}
+
+.z-table-header {
+  /* padding-bottom: 17px; */
+}
+
+
+.z-table-cell {
+  /* padding: 16px 18px; */
+  white-space: nowrap;
+  min-width: 100px;
+  display: inline-block;
+  padding: 10px;
+  /* box-sizing: content-box; */
+}
+
+.z-table-thead .z-table-cell {
+  background: #f7f7f7;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background .3s ease;
+}
+
+.scroll-outer {
+  height: 41px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-inner {
+  position: relative;
+  padding-bottom: 17px; /* Increase/Decrease this value for cross-browser compatibility */
+  overflow: scroll;
+  box-sizing: content-box;
+}
