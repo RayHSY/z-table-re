@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import HeaderRow from './HeaderRow'
 import Row from './Row'
 
 import classnames from 'classnames'
@@ -42,9 +41,12 @@ class BaseTable extends Component {
       isAnyColumnsFixed, 
       columns,
       prefixCls,
+      rows: rowArr
     } = this.props
 
     const rows = []
+
+    console.log(this.props)
 
     renderData.map((rowData, index) => {
       // const key = getRowKey(rowData, index)
@@ -60,6 +62,7 @@ class BaseTable extends Component {
           columns={columns}
           rowKey={index}
           isAnyColumnsFixed={isAnyColumnsFixed}
+          rows={rowArr}
         />
       )
 
@@ -91,7 +94,6 @@ class BaseTable extends Component {
 
     return (
       <div ref={this.context.saveRef(this.props.nodeName)} className={classStr} style={styles} key="table">
-        {hasHeader && <HeaderRow saveRef={this.context.saveRef} prefixCls={prefixCls} columns={columns} fixed={fixed}/>}
         {body}
       </div>
     )

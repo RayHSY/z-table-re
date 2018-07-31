@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import BaseTable from './BaseTable'
+import TableHeader from './TableHeader'
 import ScrollBar from 'react-custom-scrollbars'
 
 import classnames from 'classnames'
@@ -99,16 +100,16 @@ class Table extends Component {
 
   handleScrollX = e => {
 
-    let target = e ? e.currentTarget.childNodes[0] : null,
-        scrollLeft = e ? e.currentTarget.scrollLeft : 0,
+    let target = e ? e.target : null,
+        scrollLeft = e ? e.target.scrollLeft : 0,
         {columns} = this.props
 
       // 同步移动
     if (scrollLeft !== this._scrollLeftModel) {
-      if (target === this.tableHeader) {
+      if (target === this.horizontalScrollbarHeader) {
         this.refs.scrollbarBody.scrollLeft(scrollLeft)
       } else {
-        this.scrollbarHeader.scrollLeft = scrollLeft
+        this.horizontalScrollbarHeader.scrollLeft = scrollLeft
       }
     }
 
@@ -126,8 +127,6 @@ class Table extends Component {
         if (to > columns.length) {
             to = columns.length
         }
-
-        console.log(to)
 
         this.setState({
           paddingLeft: from * this._averWidth,
@@ -185,7 +184,7 @@ class Table extends Component {
 
 
   render () {
-    const {columns, showHeader, prefixCls, className} = this.props
+    const {columns, showHeader, prefixCls, className, rows} = this.props
     const {data, paddingBottom, paddingTop, paddingRight, paddingLeft }  = this.state
     const bodyStyles = {
       paddingTop,
@@ -200,30 +199,38 @@ class Table extends Component {
 
     const classStr = classnames(prefixCls, className)
 
+    const verticalScrollStyle = {
+      marginTop: this.horizontalScrollbarHeader && this.horizontalScrollbarHeader.clientHeight + 28
+    }
     return (
-      <div className={classStr} style={tableStyles}>
-        <div className="scroll-outer">
-          <div onScroll={this.handleScrollX} className="scroll-inner" ref={this.saveRef('scrollbarHeader')}>
-            <BaseTable 
-              hasBody={false} 
-              nodeName='tableHeader' 
-              prefixCls={prefixCls}
-              hasHeader={showHeader} 
-              data={data} 
-              columns={columns}
-              className={`${prefixCls}-header`}
-            />
+      <div className={classStr}>
+        <div className={`${prefixCls}-left`} style={verticalScrollStyle}>
+          {/* 表格左边栏头部 */}
+          <div className="scroll-outer">
+            <div onScroll={this.handleScrollX} className="scroll-inner" ref={this.saveRef('verticalScrollbarHeader')}>
+              <TableHeader rows={rows}  prefixCls={prefixCls} type='vertical' saveRef={this.saveRef} />
+            </div>
           </div>
         </div>
-        <ScrollBar ref="scrollbarBody" autoHeight onScroll={this.handleScroll}>
-          <BaseTable 
-            nodeName='tableBody' 
-            prefixCls={prefixCls}
-            data={data} 
-            columns={this.state.columns}
-            style={bodyStyles}
-          />
-        </ScrollBar>
+        <div className={`${prefixCls}-right`} style={tableStyles}>
+          {/* 表格头部 */}
+          <div className="scroll-outer">
+            <div onScroll={this.handleScrollX} className="scroll-inner" ref={this.saveRef('horizontalScrollbarHeader')}>
+              <TableHeader columns={columns}  prefixCls={prefixCls} type='horizontal' saveRef={this.saveRef} />
+            </div>
+          </div>
+          {/* 表格主体 */}
+          <ScrollBar ref="scrollbarBody" autoHeight onScroll={this.handleScroll}>
+            <BaseTable 
+              nodeName='tableBody' 
+              prefixCls={prefixCls}
+              data={data} 
+              columns={this.state.columns}
+              style={bodyStyles}
+              rows={rows}
+            />
+          </ScrollBar>
+        </div>
       </div>
     )
   }

@@ -11,13 +11,17 @@ export default class Cell extends Component {
     column: PropTypes.object,
     isHeaderCell: PropTypes.bool,
     cellIntent: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    type: PropTypes.string,
+    width: PropTypes.number,
+    rows: PropTypes.array
   }
 
   static defaultProps = {
     isHeaderCell: false,
-    cellIntentSize: 1,
-    height: 50
+    cellIntent: 1,
+    height: 50,
+    width: 100
   }
 
   constructor (props) {
@@ -28,18 +32,21 @@ export default class Cell extends Component {
     const {
       index,
       column,
+      rows,
       rowData,
       isHeaderCell,
       prefixCls,
       cellIndent,
       height,
+      type,
+      width,
       ...others
     } = this.props
 
     let styles = {
-      width: column.width || 100,
+      width: type === 'vertical' && isHeaderCell ? cellIndent * width : column.width || 100,
       textAlign: column.align || 'inherit',
-      height: isHeaderCell ? cellIndent * height : height,
+      height: type === 'horizontal' && isHeaderCell ? cellIndent * height : height,
     }
 
     const { dataIndex, render, className = '' } = column
@@ -58,6 +65,10 @@ export default class Cell extends Component {
 
     if (render && !isHeaderCell) {
       text = render(text, rowData, index)
+    }
+
+    if (!isHeaderCell) {
+      console.log(rows[index])
     }
 
     return (

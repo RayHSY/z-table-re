@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -9,33 +9,29 @@
   color: #666;
   transition: opacity 0.3s ease;
   position: relative;
-  line-height: 1.5;
   overflow: hidden;
   max-width: 900px;
 }
 
 .z-table-wrapper {
-  /* min-width: 500px; */
-  /* width: 100%; */
   white-space: nowrap;
   box-sizing: content-box;
 }
 
-.z-table-header {
-  /* padding-bottom: 17px; */
-}
-
-.z-table-cell-group {
-  /* white-space: nowrap; */
+.z-table-horizontal-cell-group {
   min-width: 100px;
   display: inline-block;
 }
 
-.z-table-cell-group .cell-group-header {
+.z-table-horizontal-cell-group .cell-group-header {
   width: 100%;
   padding: 10px;
   border: 1px solid #333;
   height: 50px;
+}
+
+.z-table-horizontal-cell-group .cell-group-container {
+  padding: 0;
 }
 
 .z-table-header .z-table-cell {
@@ -51,7 +47,7 @@
   min-width: 100px;
   display: inline-block;
   padding-left: 10px;
-  /* box-sizing: content-box; */
+  box-sizing: content-box;
   overflow: hidden;
   height: 50px;
 }
@@ -63,7 +59,7 @@
 }
 
 .scroll-outer {
-  /* height: 41px; */
+  height: 41px;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -71,10 +67,95 @@
 
 .scroll-inner {
   position: relative;
-  /* padding-bottom: 17px; Increase/Decrease this value for cross-browser compatibility */
+  padding-bottom: 17px; 
   overflow: scroll;
   box-sizing: content-box;
   background: #f7f7f7;
   font-weight: bold;
   font-size: 14px;
+} */
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.z-table {
+  display: flex;
+  background: #f7f7f7;
+}
+
+.z-table-right {
+  font-size: 14px;
+  color: #666;
+  position: relative;
+  overflow: hidden;
+  max-width: 900px;
+}
+
+.z-table-left {
+}
+
+.z-table .scroll-outer {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.z-table .scroll-outer .scroll-inner {
+  position: relative;
+  overflow: scroll;
+  background: #f7f7f7;
+  font-weight: bold;
+  /* padding-bottom: 17px; */
+}
+
+.z-table-left .scroll-outer .scroll-inner {
+  overflow-x: hidden;
+}
+
+.z-table-right .scroll-outer .scroll-inner {
+  overflow-y: hidden;
+}
+
+.z-table-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.z-table-left{
+  float: left;
+  width: auto;
+}
+
+.z-table-vertical-row {
+  display: block;
+}
+
+.cell-group-header {
+  height: 50px;
+  border: 1px solid #333;
+}
+
+.cell-group-container {
+  display: inline-flex;
+}
+
+.z-table-thead  .z-table-cell {
+  border: 1px solid #333;
+}
+
+.z-table-vertical-cell-group {
+  display: flex;
+}
+
+.z-table-vertical-cell-group .cell-group-container {
+  display: block;
+}
+
+.z-table-vertical-cell-group .cell-group-header {
+  width: 100px;
 }
