@@ -7,7 +7,7 @@ import ScrollBar from 'react-custom-scrollbars'
 
 import classnames from 'classnames'
 
-import './styles/table.css'
+import './styles/table.styl'
 
 class Table extends Component {
   static propTypes = {
@@ -200,7 +200,7 @@ class Table extends Component {
     const classStr = classnames(prefixCls, className)
 
     const verticalScrollStyle = {
-      marginTop: this.horizontalScrollbarHeader && this.horizontalScrollbarHeader.clientHeight + 28
+      marginTop: 50 
     }
     return (
       <div className={classStr}>

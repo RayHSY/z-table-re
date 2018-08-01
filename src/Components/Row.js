@@ -58,7 +58,7 @@ export default class Row extends Component {
       rows,
       type
     } = this.props
-    const cells = dataArr.map((column, index) => {
+    const cells = dataArr.map((column) => {
       if (column.children) {
         return (
           <CellGroup 
@@ -92,6 +92,10 @@ export default class Row extends Component {
     })
 
     return cells
+  }
+
+  filterRow () {
+
   }
 
   rowRef = (ref) => {

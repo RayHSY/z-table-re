@@ -1,0 +1,80 @@
+* 
+  padding: 0
+  margin: 0
+  box-sizing: border-box
+
+.z-table 
+  display: flex
+  background: #f7f7f7
+
+  .z-table-right 
+    font-size: 14px
+    color: #666
+    position: relative
+    overflow: hidden
+    max-width: 900px
+
+    .scroll-outer 
+      .scroll-inner
+        overflow-y: hidden
+
+  .z-table-left
+    float: left
+    width: auto
+
+    .scroll-outer 
+      .scroll-inner
+        overflow-x: hidden
+
+  .scroll-outer
+    width: 100%
+    position: relative
+    overflow: hidden
+
+    .scroll-inner
+      position: relative
+      overflow: scroll
+      background: #f7f7f7
+      font-weight: bold
+
+  .z-table-row
+    width: 100%
+    display: flex
+    flex-wrap: nowrap
+    // border-bottom 1px solid #333;
+
+  .cell-group-header
+    height: 50px
+    // border: 1px solid #333
+
+  .cell-group-container
+    display: inline-flex
+
+  .z-table-thead
+    .z-table-cell
+      // border: 1px solid #333
+
+  .z-table-vertical-row
+    display: block
+
+  .z-table-vertical-cell-group
+    display: flex
+
+    .cell-group-container
+      display: block
+
+    .cell-group-header
+      width: 100px
+      border-right 1px solid #333;
+
+  .z-table-tbody
+    .z-table-cell 
+      background #fff
+  
+  .z-table-cell-inner
+  .cell-group-header
+    padding 10px
+
+  .z-table-cell
+  .cell-group-header
+    border-bottom 1px solid #333;
