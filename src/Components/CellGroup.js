@@ -33,11 +33,14 @@ export default function CellGroup ({
   }
 
   return (
-    <div className={`${prefixCls}-${type}-cell-group`} style={styles}>
-      {isHeaderCell ? <div style={headerStyle} className="cell-group-header">{column.title}</div> : null}
-      <div className="cell-group-container">
-        {children}
+    <div>
+      <div className={`${prefixCls}-${type}-cell-group`} style={styles}>
+        {isHeaderCell ? <div style={headerStyle} className="cell-group-header">{column.title}</div> : null}
+        <div className="cell-group-container">
+          {children}
+        </div>
       </div>
+      {/* <div style={{textAlign: column.align, height: rowHeight}} className={`${prefixCls}-${type}-total-cell`}>总计</div> */}
     </div>
   )
 }

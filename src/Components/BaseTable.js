@@ -72,47 +72,40 @@ class BaseTable extends Component {
           />
         )
       } else {
-        return filterData.map((rowData, index) => {
-          return (
-            <Row
-              // className={className}
-              fixed={fixed}
-              // indent={indent}
-              rowData={rowData}
-              index={index}
-              prefixCls={prefixCls}
-              columns={columns}
-              rowKey={index}
-              isAnyColumnsFixed={isAnyColumnsFixed}
-              rows={rowArr}
-              key={index}
-            />
-          )
-        })
+        return (
+          <Row
+            // className={className}
+            fixed={fixed}
+            // indent={indent}
+            rowData={filterData}
+            index={index}
+            prefixCls={prefixCls}
+            columns={columns}
+            rowKey={index}
+            isAnyColumnsFixed={isAnyColumnsFixed}
+            rows={rowArr}
+            key={index}
+          />
+      )
+        // return filterData.map((rowData, index) => {
+        //   return (
+        //     <Row
+        //       // className={className}
+        //       fixed={fixed}
+        //       // indent={indent}
+        //       rowData={rowData}
+        //       index={index}
+        //       prefixCls={prefixCls}
+        //       columns={columns}
+        //       rowKey={index}
+        //       isAnyColumnsFixed={isAnyColumnsFixed}
+        //       rows={rowArr}
+        //       key={index}
+        //     />
+        //   )
+        // })
       }
     })
-
-    // renderData.map((rowData, index) => {
-    //   // const key = getRowKey(rowData, index)
-
-    //   const row = (
-    //     <Row
-    //       // className={className}
-    //       fixed={fixed}
-    //       indent={indent}
-    //       rowData={rowData}
-    //       index={index}
-    //       prefixCls={prefixCls}
-    //       columns={columns}
-    //       rowKey={index}
-    //       isAnyColumnsFixed={isAnyColumnsFixed}
-    //       rows={rowArr}
-    //     />
-    //   )
-
-    //   rows.push(row)
-    // })
-    // return rows
   }
 
   render () {

@@ -5,11 +5,13 @@ import classnames from 'classnames'
 
 import Cell from './Cell'
 import CellGroup from './CellGroup'
+import _ from 'lodash'
 // import RenderCell from './RenderCell'
 
 export default class Row extends Component {
   static propTypes = {
-    rowData: PropTypes.object,
+    rowData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    index: PropTypes.number,
     prefixCls: PropTypes.string,
     columns: PropTypes.array,
     rows: PropTypes.array,
@@ -32,7 +34,8 @@ export default class Row extends Component {
   }
 
   static contextTypes = {
-    rowHeight: PropTypes.number
+    rowHeight: PropTypes.number,
+    values: PropTypes.array
   }
 
   constructor (props) {
@@ -48,10 +51,9 @@ export default class Row extends Component {
       this.props.type !== 'horizontal' && console.log('size' + this._cellIndentSize)
   }
 
-  getCells (dataArr, cellIndentSize = this._cellIndentSize) {
+  getCells (dataArr, renderData = this.props.rowData, cellIndentSize = this._cellIndentSize) {
     const {
       prefixCls,
-      rowData,
       indent,
       indentSize,
       isHeaderRow,
@@ -61,6 +63,12 @@ export default class Row extends Component {
     } = this.props
 
     const cells = dataArr.map((column) => {
+      let filterData = null
+      if (_.isArray(renderData)) {
+        filterData = renderData.filter(row => {
+          return row[column.dataKey] === column.dataIndex || _.indexOf(this.context.values, column.dataIndex) > -1
+        })
+      }
       if (column.children) {
         return (
           <CellGroup 
@@ -71,10 +79,12 @@ export default class Row extends Component {
             prefixCls={prefixCls}
             rowHeight={this.context.rowHeight}
           >
-            {this.getCells(column.children, cellIndentSize - 1)}
+            {this.getCells(column.children, filterData, cellIndentSize - 1)}
           </CellGroup>
         )
       }
+
+      let rowData = _.isArray(filterData) ? filterData[0] : {}
       return (
         <Cell
           prefixCls={prefixCls}

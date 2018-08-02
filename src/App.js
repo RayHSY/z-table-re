@@ -27,7 +27,9 @@ class App extends Component {
       },
     ]
 
-    const rows = ['address', 'age', 'age', 'age']
+    const rows = ['address', 'age']
+    const cols = ['name', 'second name']
+    const values = ['total', 'age']
     const data = [
       {
         address: '上海',
@@ -35,6 +37,15 @@ class App extends Component {
         member: 3,
         sex: '女',
         name: 'lili',
+        age: 12,
+        'second name': 'kl'
+      },
+      {
+        address: '上海',
+        total: 40,
+        member: 3,
+        sex: '女',
+        name: 'lisa',
         age: 12,
         'second name': 'kl'
       },
@@ -65,17 +76,11 @@ class App extends Component {
         age: 12,
         'second name': 'kl'
       },
-      
-      // {
-      //   address: '上海',
-      //   total: 30,
-      //   member: 3
-      // }
     ];
     return (
       <div className="App">
 
-        <Table height={500} data={data} rows={rows} columns={columns} />
+        <Table height={500} data={data} values={values} rows={rows} cols={cols} columns={columns} />
       </div>
     );
   }

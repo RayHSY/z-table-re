@@ -1,0 +1,144 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.z-table {
+  /* background: #96C4E6; */
+}
+
+.z-table .z-table-top {
+  /* display: flex; */
+  border: 1px solid #333;
+  border-bottom: 0px;
+  flex-shrink: 0;
+}
+
+.z-table .z-table-body {
+  display: flex;
+  border: 1px solid #333;
+  border-bottom: 0px;
+  flex-shrink: 0;
+}
+.z-table .z-table-body .z-table-wrapper {
+  color: #666;
+}
+
+.z-table .z-table-top .scroll-outer, .z-table .z-table-body-container {
+  font-size: 14px;
+  max-width: 900px;
+}
+
+.z-table .z-table-top .scroll-outer .scroll-inner {
+  overflow-y: hidden;
+  padding-bottom: 17px;
+}
+
+.z-table .z-table-left {
+  float: left;
+  width: auto;
+}
+.z-table .z-table-left .scroll-outer .scroll-inner {
+  overflow-x: hidden;
+  padding-right: 17px;
+  width: 100%;
+}
+
+.z-table .scroll-outer {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.z-table .scroll-outer .scroll-inner {
+  position: relative;
+  overflow: scroll;
+  /* background: #f5f6eb; */
+  font-weight: bold;
+  box-sizing: content-box;
+}
+
+.z-table .z-table-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.z-table .cell-group-header {
+  height: 50px;
+}
+
+.z-table .cell-group-container {
+  display: inline-flex;
+}
+.z-table .z-table-vertical-row {
+  display: block;
+}
+
+.z-table .z-table-vertical-cell-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.z-table .z-table-vertical-cell-group .cell-group-container {
+  display: block;
+}
+
+.z-table .z-table-vertical-cell-group .cell-group-header {
+  width: 100px;
+  border-right: 1px solid #333;
+}
+
+.z-table .z-table-vertical-cell-group .cell-group-container .z-table-cell .z-table-cell-inner {
+  border-right: 1px solid #333;
+}
+
+.z-table .z-table-tbody .z-table-cell {
+  /* background: #f2f2f2; */
+}
+
+.z-table .cell-group-header {
+  padding: 10px;
+}
+
+.z-table  .cell-group-header {
+  border-bottom: 1px solid #333;
+}
+
+.cell-group-container .z-table-cell .z-table-cell-inner {
+  border-bottom: 1px solid #333;
+  padding: 10px;
+}
+
+.z-table-horizontal-thead {
+  /* background-color: #96C4E6; */
+  color: #333;
+}
+
+.z-table-vertical-thead {
+  /* background-color: #C7E1F0; */
+  color: #333;
+}
+
+.z-table-horizontal-thead .cell-group-container .z-table-cell .z-table-cell-inner {
+  border-bottom: 0px;
+}
+
+.table-left {
+  border-right: 1px solid #333;
+}
+
+.table-left, .z-table .scroll-outer {
+  display: inline-block;
+}
+
+.z-table-vertical-total-cell {
+  /* height: 50px; */
+  border-right: 1px solid #333;
+  border-bottom: 1px solid #333;
+  padding: 10px;
+}
+
+/* .z-table-horizontal-cell-group {
+  border-right: 1px solid #333;
+} */

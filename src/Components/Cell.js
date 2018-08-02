@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-import CellGroup from './CellGroup'
-
 export default class Cell extends Component {
   static propTypes = {
     prefixCls: PropTypes.string,
