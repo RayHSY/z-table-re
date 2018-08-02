@@ -24,7 +24,8 @@ export default function CellGroup ({
 }) {
 
   const styles = {
-    textAlign: column.align
+    textAlign: column.align,
+    height: !isHeaderCell ? rowHeight : 'auto'
   }
 
   const headerStyle = {

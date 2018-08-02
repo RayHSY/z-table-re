@@ -44,13 +44,18 @@ class BaseTable extends Component {
       prefixCls,
     } = this.props
 
-    // const rows = []
-
     return rowArr.map((rowItem, index) => {
       let filterData = renderData.filter(data => {
         return data[rowItem.dataKey] === rowItem.dataIndex
       })
-      if (filterData.length === 0) {
+
+      if (rowItem.children) {
+        return (
+          <RowGroup prefixCls={prefixCls}>
+            {this.renderRows(rowItem.children, filterData)}
+          </RowGroup>
+        )
+      } else if (filterData.length === 0) {
         return (
           <Row
             // className={className}
@@ -63,14 +68,8 @@ class BaseTable extends Component {
             rowKey={index}
             isAnyColumnsFixed={isAnyColumnsFixed}
             rows={rowArr}
+            key={index}
           />
-        )
-      }
-      if (rowItem.children) {
-        return (
-          <RowGroup prefixCls={prefixCls}>
-            {this.renderRows(rowItem.children, filterData)}
-          </RowGroup>
         )
       } else {
         return filterData.map((rowData, index) => {
@@ -86,6 +85,7 @@ class BaseTable extends Component {
               rowKey={index}
               isAnyColumnsFixed={isAnyColumnsFixed}
               rows={rowArr}
+              key={index}
             />
           )
         })
@@ -127,8 +127,6 @@ class BaseTable extends Component {
       prefixCls
     } = this.props
     const styles = {...style}
-
-    const columns = this.getColumns()
 
     // console.log(this.renderRows(rows))
 

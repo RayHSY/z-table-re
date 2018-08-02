@@ -15,7 +15,6 @@ export default class Row extends Component {
     rows: PropTypes.array,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     index: PropTypes.number,
-    rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     className: PropTypes.string,
     indent: PropTypes.number,
     indentSize: PropTypes.number,
@@ -45,6 +44,8 @@ export default class Row extends Component {
     this._cellIndentSize = this.props.type === 'horizontal' 
       ? Math.ceil(this.row.clientHeight / this.context.rowHeight )
       : Math.ceil(this.row.clientWidth / 100 )
+
+      this.props.type !== 'horizontal' && console.log('size' + this._cellIndentSize)
   }
 
   getCells (dataArr, cellIndentSize = this._cellIndentSize) {
@@ -58,6 +59,7 @@ export default class Row extends Component {
       rows,
       type
     } = this.props
+
     const cells = dataArr.map((column) => {
       if (column.children) {
         return (

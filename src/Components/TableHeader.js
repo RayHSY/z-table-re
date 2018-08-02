@@ -9,7 +9,8 @@ export default function TableHeader (props) {
     prefixCls,
     saveRef,
     type,
-    rows
+    rows,
+    style
   } = props
 
   return (
@@ -23,6 +24,7 @@ export default function TableHeader (props) {
           prefixCls={prefixCls}
           indent={0}
           type={type}
+          style={style}
       />
       }
     </div>

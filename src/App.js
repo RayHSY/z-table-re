@@ -9,88 +9,73 @@ class App extends Component {
   render() {
     const columns = [
       {
-        title: '总计',
-        key: 'total',
-        dataIndex: 'total'
-      },
-      {
-        title: '成员数',
-        key: 'members',
-        dataIndex: 'members'
-      },
-      {
-        title: '个数',
-        key: 'counts',
-        dataIndex: 'counts'
-      }
-    ];
-
-    const rows = [
-      // {
-      //   key: 'age',
-      //   dataKey: 'age'
-      // }
-      {
-        title: '1~10',
-        key: '1~10',
-        dataIndex: '1~10',
-        dataKey: 'age',
+        title: '名字',
+        dataIndex: 'name',
+        key: 'name',
         children: [
           {
-            title: 'm',
-            key: 'm',
-            dataIndex: 'm',
-            dataKey: 'sex'
+            title: '参与人数',
+            dataIndex: 'member',
+            key: 'member'
           },
           {
-            title: 'w',
-            key: 'w',
-            dataIndex: 'w',
-            dataKey: 'sex'
-          }
+            title: '总计',
+            dataIndex: 'total',
+            key: 'total'
+          },
         ]
-      },
-      {
-        title: '15~18',
-        key: '15~18',
-        dataIndex: '15~18',
-        dataKey: 'age',
-      },
-      {
-        title: '11~14',
-        key: '11~14',
-        dataIndex: '11~14',
-        dataKey: 'age',
       },
     ]
 
+    const rows = ['address', 'age', 'age', 'age']
     const data = [
       {
-        age: '11~14',
-        total: 110,
-        counts: 11,
-        members: 11,
-        sex: 'w'
+        address: '上海',
+        total: 30,
+        member: 3,
+        sex: '女',
+        name: 'lili',
+        age: 12,
+        'second name': 'kl'
       },
       {
-        age: '1~10',
+        address: '北京',
         total: 10,
-        counts: 1,
-        members: 1,
-        sex: 'm'
+        member: 1,
+        sex: '男',
+        name: 'lili',
+        age: 15,
+        'second name': 'ksasa'
       },
       {
-        age: '15~18',
-        total: 150,
-        counts: 15,
-        members: 15,
-        sex: 'w'
-      }
+        address: '广州',
+        total: 20,
+        member: 2,
+        sex: '男',
+        name: 'lisas',
+        age: 19,
+        'second name': 'kl'
+      },
+      {
+        address: '杭州',
+        total: 40,
+        member: 4,
+        sex: '男',
+        name: 'lili',
+        age: 12,
+        'second name': 'kl'
+      },
+      
+      // {
+      //   address: '上海',
+      //   total: 30,
+      //   member: 3
+      // }
     ];
     return (
       <div className="App">
 
-        <Table data={data} rows={rows} columns={columns} />
+        <Table height={500} data={data} rows={rows} columns={columns} />
       </div>
     );
   }

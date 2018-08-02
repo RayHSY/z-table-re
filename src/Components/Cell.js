@@ -21,7 +21,7 @@ export default class Cell extends Component {
 
   static defaultProps = {
     isHeaderCell: false,
-    cellIntent: 1,
+    cellIndent: 1,
     height: 50,
     width: 100
   }

@@ -4,19 +4,24 @@
   box-sizing: border-box
 
 .z-table 
-  display: flex
+  // display: flex
   background: #f7f7f7
 
-  .z-table-right 
+  .z-table-body
+    display flex
+    .z-table-wrapper
+      color: #666
+
+  .z-table-top
+  .z-table-body-container
     font-size: 14px
-    color: #666
-    position: relative
-    overflow: hidden
     max-width: 900px
 
+  .z-table-top
     .scroll-outer 
       .scroll-inner
         overflow-y: hidden
+        padding-bottom 17px
 
   .z-table-left
     float: left
@@ -25,6 +30,8 @@
     .scroll-outer 
       .scroll-inner
         overflow-x: hidden
+        padding-right 17px
+        width 100%
 
   .scroll-outer
     width: 100%
@@ -36,6 +43,7 @@
       overflow: scroll
       background: #f7f7f7
       font-weight: bold
+      box-sizing content-box
 
   .z-table-row
     width: 100%
@@ -59,6 +67,7 @@
 
   .z-table-vertical-cell-group
     display: flex
+    flex-shrink 0
 
     .cell-group-container
       display: block
@@ -66,6 +75,11 @@
     .cell-group-header
       width: 100px
       border-right 1px solid #333;
+
+    .cell-group-container
+      .z-table-cell
+        .z-table-cell-inner
+          border-right 1px solid #333;
 
   .z-table-tbody
     .z-table-cell 
@@ -78,3 +92,8 @@
   .z-table-cell
   .cell-group-header
     border-bottom 1px solid #333;
+
+  .z-table-cell
+    .z-table-cell-inner
+      // height 49px
+      // width 100px
